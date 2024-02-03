@@ -10,6 +10,13 @@ class Program(models.Model):
         return self.name
     def get_absolute_url(self):
         return f"program/{self.id}/"
+
+    def get_prof_cousr(self):
+        return self.course_set.filter(prof_typ="P")
+
+    def get_var_cousr(self):
+        return self.course_set.filter(prof_typ="V")
+
     class Meta:
         verbose_name="Образовательаня программа"
         verbose_name_plural = "Образовательные программы"

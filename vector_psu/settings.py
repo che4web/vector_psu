@@ -79,6 +79,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': "vectro-psu",
+        #'USER': "vectro-psu",
+        #'PASSWORD': "vectro-psu",
+        #"HOST":"127.0.0.1",
     }
 }
 

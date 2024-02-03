@@ -1,10 +1,93 @@
 {% extends 'base.html'%}
 {% block content%}
+<div class="row">
+    <div class="col-8">
 <h1> ОП {{program.name}}</h1>
+<div >{{program.description}}</div>
+</div>
+    <div class="col-4">
+            <h2> Специальности</h2>
+            {% for speciality in program.speciality_set.all%}
+                <div> {{speciality}} </div>
+            {%endfor%}
+            </div>
+            </div>
 
-<h2> {{program}} </h2>
-    {% for cours in program.course_set.all%}
-    <div> {{cours}} </div>
+<h2> Базовый блок дисциплин</h2>
+<div class=" row row-cols-1 row-cols-md-3">
+    {% for area in known_area%}
+        <div class="col">
+    <div class="area-{{area.code}}">
+        <h5 class="card-title"> {{area.name}}</h5>
+        <div class="card h-100 ">
+        <div class="card-body">
+            <ul>
+        {% for cours in area.course %}
+            <li> {{cours}} </li>
+        {%endfor%}
+            </ul>
+    </div>
+    </div>
+    </div>
+    </div>
     {%endfor%}
+    </div>
+    <div class="row  ">
+        <div class="col-sm-12 col-md-4">
+            <h2> Профессиональный блок</h2>
+            <ul>
+            {% for course in program.get_prof_cousr%}
+                <li class="area-{{course.known_area}} course-name"> {{course}} </li>
+            {%endfor%}
+            <ul>
+        </div>
 
+        <div class="col-sm-12 col-md-4">
+            <h2> По выбору блок</h2>
+            {% for course in program.get_var_cousr%}
+            <div class="area-{{course.known_area}} course-name"> {{course}} </div>
+            {%endfor%}
+        </div>
+
+    </div>
+
+<style>
+.area-FZ.course-name{
+     color:blue
+}
+.area-MT.course-name{
+     color:red
+}
+
+ .area-FZ .card-title{
+     color:blue
+ }
+ .area-FZ .card-body{
+     background-color:#0000ff0d
+ }
+
+
+
+ .area-MT .card-title{
+     color:red
+ }
+ .area-MT .card-body{
+     background-color:#ff000012
+ }
+
+
+
+ .area-IT .card-title{
+     color:green
+ }
+ .area-IT .card-body{
+     background-color:#00ff4c12
+ }
+ .card{
+    border-radius:40px
+}
+
+</style>
+</style>
 {%endblock%}
+
