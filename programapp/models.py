@@ -8,7 +8,8 @@ class Program(models.Model):
     description = models.TextField(blank=True,verbose_name='Описание')
     def __str__(self):
         return self.name
-
+    def get_absolute_url(self):
+        return f"program/{self.id}/"
     class Meta:
         verbose_name="Образовательаня программа"
         verbose_name_plural = "Образовательные программы"

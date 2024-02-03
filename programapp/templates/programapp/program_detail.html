@@ -1,0 +1,6 @@
+<h1> ОП {{program.name}}</h1>
+
+<h2> {{program}} </h2>
+    {% for cours in program.course_set.all%}
+    <div> {{cours}} </div>
+    {%endfor%}
