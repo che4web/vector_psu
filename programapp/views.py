@@ -6,8 +6,9 @@ from programapp.models import Program,Speciality
 # Create your views here.
 
 def program_list(request):
+    name = request.GET.get('program_name','')
     context = {
-        "program_list":Program.objects.all()
+        "program_list":Program.objects.filter(name__icontains=name)
     }
     return render(request,'programapp/program_list.html',context)
 
