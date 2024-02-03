@@ -1,0 +1,8 @@
+{% extends 'base.html'%}
+{% block content%}
+<h1>Список курсов</h1>
+{% for course in course_list%}
+
+<h2> <a href="{{course.get_absolute_url}}"> {{course}} </a> </h2>
+{%endfor%}
+{%endblock%}

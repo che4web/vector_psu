@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content%}
-<h1>Список ОП ИЗ ШАБЛОНА</h1>
-{% for program in program_list%}
+<h1>Список Специальностей</h1>
+{% for program in speciality_list%}
 
 <h2> <a href="{{program.get_absolute_url}}"> {{program}} </a> </h2>
     {% for cours in program.course_set.all%}
