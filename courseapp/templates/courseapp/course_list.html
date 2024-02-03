@@ -1,8 +1,13 @@
 {% extends 'base.html'%}
 {% block content%}
 <h1>Список курсов</h1>
+<form>
+    <input name="couse_name" value="{{request.GET.couse_name}}" class="form-control">
+<button class="btn btn-primary"> поиск</button>
+</form>
+<ol>
 {% for course in course_list%}
-
-<h2> <a href="{{course.get_absolute_url}}"> {{course}} </a> </h2>
+<li> <a href="{{course.get_absolute_url}}"> {{course}} </a> </li>
 {%endfor%}
+</ol>
 {%endblock%}

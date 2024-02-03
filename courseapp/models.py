@@ -29,6 +29,8 @@ class Course(models.Model):
         blank=True,
         choices=PROF_TYP_CHOISES,
         default="B")
+    def get_absolute_url(self):
+        return f"/course/{self.id}/"
 
     def __str__(self):
         return self.name

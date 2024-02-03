@@ -1,0 +1,9 @@
+{% extends 'base.html'%}
+{% block content%}
+<h1>Список {{course.name}}</h1>
+{{course.description}}
+{%for c in course.speciality.all%} 
+{{c.name}}
+{%endfor%}
+{%endblock%}
+

@@ -23,7 +23,7 @@
         <div class="card-body">
             <ul>
         {% for cours in area.course %}
-            <li> {{cours}} </li>
+        <li> <a href="{{cours.get_absolute_url}}">{{cours}}</a> </li>
         {%endfor%}
             </ul>
     </div>
