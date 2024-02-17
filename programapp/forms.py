@@ -3,8 +3,8 @@ from django.forms import ModelForm
 from programapp.models import Program
 
 class SearchForm(forms.Form):
-    program_name = forms.CharField(label="Название программы", max_length=100)
-    date  = forms.DateField(label="Дата нача программы")
+    program_name = forms.CharField(label="Название программы", max_length=100,required=False)
+    date  = forms.DateField(label="Дата нача программы",required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

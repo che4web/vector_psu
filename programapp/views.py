@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.views.generic import ListView,CreateView
 
 from programapp.models import Program,Speciality
@@ -7,6 +7,20 @@ from programapp.models import Program,Speciality
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from programapp.forms import SearchForm,ProgramForm
+from rest_framework import viewsets
+from rest_framework import serializers
+
+class ProgramSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Program
+        fields = '__all__'
+
+class ProgramViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing user instances.
+    """
+    serializer_class = ProgramSerializer
+    queryset = Program.objects.all()
 
 @login_required
 def program_list(request):
@@ -28,6 +42,31 @@ def program_list(request):
         'form':form,
     }
     return render(request,'programapp/program_list.html',context)
+@login_required
+def program_list_json(request):
+
+    form = SearchForm(request.GET)
+    program_list =Program.objects.all()
+
+    if form.is_valid():
+        name = form.cleaned_data.get('program_name')
+        date= form.cleaned_data.get('date')
+        if name:
+            program_list=program_list.filter(name__icontains=name)
+        if date:
+            program_list =program_list.filter(date__gt=date)
+    else:
+        pass
+    data = []
+    for x in program_list:
+        course_list = []
+        for course in x.course_set.all():
+            course_list.append({'name':course.name})
+        tmp = {'name':x.name,'id':x.id,'course_set':course_list}
+        data.append( tmp)
+    return JsonResponse({'data':data})
+
+
 
 def program_create(request):
     if request.method =='GET':

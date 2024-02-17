@@ -15,16 +15,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from programapp.views import (program_list,
                               program_detail,
+                              program_list_json,
                               SpecialityListView,
                               program_create,
+                              ProgramViewSet,
                               ProgramCreateView)
-from courseapp.views import CourseListView,CourseDetailView
+from courseapp.views import CourseListView,CourseDetailView,CourseViewSet
+
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'program', ProgramViewSet, basename='program')
+router.register(r'course', CourseViewSet, basename='program')
 
 urlpatterns = [
     path("",program_list),
+    path("program/json/",program_list_json),
     path("program/create",ProgramCreateView.as_view()),
     #path("program/create",program_create),
     path("program/<int:pk>/",program_detail),
@@ -32,4 +41,5 @@ urlpatterns = [
     path("course/<int:pk>/",CourseDetailView.as_view()),
     path("speciality/",SpecialityListView.as_view()),
     path('admin/', admin.site.urls),
+    path('api/',include(router.urls))
 ]

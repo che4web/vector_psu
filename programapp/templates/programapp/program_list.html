@@ -3,20 +3,43 @@
 <h1>Список</h1>
 
 <form>
-    <input name="program_name" value="{{request.GET.program_name}}" class="form-control">
-    <input name="date" value="{{request.GET.date}}" class="form-control">
-<button class="btn btn-primary"> поиск</button>
-</form>
-<h1 > Django form </h1>
-<form>
     {{form}}
-<button class="btn btn-primary"> поиск</button>
-    </form>
-{% for program in program_list%}
+</form>
+<div id="data"></div>
+<script>
 
-<h2> <a href="{{program.get_absolute_url}}"> {{program}} </a> </h2>
-    {% for cours in program.course_set.all%}
-    <div> {{cours}} </div>
-    {%endfor%}
-{%endfor%}
+function renderProgram(program){
+    let cours_list = '<ul>'
+    if (program.course_set){
+    for (let cours of program.course_set){
+        cours_list+= '<li>' +cours.name +'</li>'
+    }
+    }
+    cours_list+='</ul>'
+    return `<div><h2> ${program.name} </h2> ${cours_list}</div>`
+
+}
+async function getProgramList(){
+    let input_program_name = document.getElementById('id_program_name')
+    let program_name = input_program_name.value
+    let response = await fetch("api/program/?program_name="+program_name)
+    let data =await response.json()
+    let el = document.getElementById('data')
+    let str = '<ul>'
+    for (program  of data){
+        str+= renderProgram(program)
+    }
+    str+='</ul>'
+    el.innerHTML=str
+
+    console.log(data)
+}
+
+let input_program_name = document.getElementById('id_program_name')
+input_program_name.addEventListener('input',getProgramList)
+getProgramList()
+
+
+</script>
+
 {%endblock%}
