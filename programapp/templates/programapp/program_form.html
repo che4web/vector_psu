@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% block content%}
+<h1> Созадть ОБразовательную программу</h1>
+<div class="row">
+    <div class="col-8">
+        <form method="POST">
+        {{form}}
+        {% csrf_token%}
+        <button> сохранить </button>
+        </form>
+    </div >
+</div>
+{%endblock%}
+

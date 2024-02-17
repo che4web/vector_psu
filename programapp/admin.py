@@ -4,11 +4,14 @@ from courseapp.models import Course
 
 class SpecialityInline(admin.TabularInline):
     model = Speciality
+
 # Register your models here.
 @admin.register(Program)
 class ProgramAdmin(admin.ModelAdmin):
     list_display = ('id','name','description')
+    list_editable = ('name','description')
     list_filter = ('speciality',)
+    readonly_fields =('name',)
     inlines= [
         SpecialityInline
     ]

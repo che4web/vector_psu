@@ -4,8 +4,14 @@
 
 <form>
     <input name="program_name" value="{{request.GET.program_name}}" class="form-control">
+    <input name="date" value="{{request.GET.date}}" class="form-control">
 <button class="btn btn-primary"> поиск</button>
 </form>
+<h1 > Django form </h1>
+<form>
+    {{form}}
+<button class="btn btn-primary"> поиск</button>
+    </form>
 {% for program in program_list%}
 
 <h2> <a href="{{program.get_absolute_url}}"> {{program}} </a> </h2>

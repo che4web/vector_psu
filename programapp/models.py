@@ -6,6 +6,7 @@ from django.db import models
 class Program(models.Model):
     name = models.CharField(max_length=255,verbose_name="Название ОП")
     description = models.TextField(blank=True,verbose_name='Описание')
+    date =models.DateField(blank=True,null=True)
     def __str__(self):
         return self.name
     def get_absolute_url(self):
