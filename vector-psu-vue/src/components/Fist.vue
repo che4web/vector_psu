@@ -1,10 +1,12 @@
 <script setup>
 import { ref,onMounted,watch } from 'vue'
 import axios from 'axios'
-import {Program,Speciality,Course} from "@/api.js"
-const programName = ref('')
-const programList = ref([])
+import {Program,Speciality} from "@/api.js"
+import ProgramCard from "@/components/ProgramCard.vue"
+
 const filter = ref({search:''})
+const programList = ref([])
+
 async function getProgramList(){
     programList.value = await Program.objects.filter(filter.value)
 }
@@ -31,17 +33,6 @@ function selectSpeciality(s){
         filter.value.speciality=s
     }
 }
-
-async function selectProgram(program){
-    program.is_active = !program.is_active
-    program.course_list = await Course.objects.filter({program:program.id})
-}
-function filterCourse(course_list,typ){
-    if (course_list){
-    return course_list.filter((item)=>item.known_area==typ)
-}
-
-}
 </script>
 
 <template>
@@ -61,45 +52,7 @@ function filterCourse(course_list,typ){
         </div>
         <div class="col-8">
             <h2> Образовательные программы </h2>
-            <div class="program-card" v-for="program in programList" @click="selectProgram(program)">
-                <div class="row">
-                    <div class="col-6">
-                        <h3>{{index}} {{program.name}} </h3>
-                    </div>
-                    <div class="col-6">
-                        <div class="text-end"><b>  Бакалавриат 4 года. </b></div>
-                    </div>
-                </div>
-                <div > {{program.description.slice(0,100)}} ... </div>
-                <div > ЕГЭ </div>
-                <div> <span v-for="ege in program.ege_list">  {{ege.ege_name}}: <b>{{ege.value}},  </b></span> </div>
-                курсы
-                <div v-if="program.is_active"> 
-                    <div class="row">
-                        <div class="col-4 area-MT">
-                            <div class="card-title"> Математика</div>
-                            
-                            <div class="card-body">
-                            <div v-for="course in filterCourse(program.course_list,'MT')">  {{course.name}}</div> 
-                        </div>
-                        </div>
-
-                        <div class="col-4 area-FZ">
-                            <div class="card-title"> Физика</div>
-                            <div class="card-body">
-                            <div v-for="course in filterCourse(program.course_list,'FZ')">  {{course.name}}</div>
-                        </div>
-                        </div>
-
-                        <div class="col-4 area-IT">
-                            <div class="card-title"> Информатика</div>
-                            <div class="card-body">
-                            <div v-for="course in filterCourse(program.course_list,'IT')">  {{course.name}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div >
-            </div>
+            <ProgramCard v-for="program in programList" :program="program"/>
     </div>
     </div>
 </template>
