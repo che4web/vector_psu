@@ -1,1 +1,42 @@
 @import './base.css';
+.area-FZ.course-name{
+     color:blue
+}
+.area-MT.course-name{
+     color:red
+}
+
+ .area-FZ .card-title{
+     color:blue
+ }
+ .area-FZ .card-body{
+     background-color:#0000ff0d
+ }
+
+
+
+ .area-MT .card-title{
+     color:red
+ }
+ .area-MT .card-body{
+     background-color:#ff000012
+ }
+
+
+
+ .area-IT .card-title{
+     color:green
+ }
+ .area-IT .card-body{
+     background-color:#00ff4c12
+ }
+ .card-body{
+    border-radius:15px;
+    padding:10px!important;
+
+ }
+ .card{
+    border-radius:40px
+}
+
+

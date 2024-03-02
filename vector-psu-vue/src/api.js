@@ -95,7 +95,9 @@ function apiConstructor(apiUrl){
 
 const programUrl = '/api/program/'
 const specialityUrl = '/api/speciality/'
+const courseUrl= '/api/course/'
 
 export let Program = apiConstructor(programUrl)
 export let Speciality= apiConstructor(specialityUrl)
+export let Course= apiConstructor(courseUrl)
 

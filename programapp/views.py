@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
 from django.views.generic import ListView,CreateView
 
-from programapp.models import Program,Speciality
+from programapp.models import Program,Speciality,ProgramEge
 
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -12,7 +12,13 @@ from rest_framework import serializers
 
 from django_filters import rest_framework as filters
 
+class ProgramEgeSerializer(serializers.ModelSerializer):
+    ege_name = serializers.CharField()
+    class Meta:
+        model = ProgramEge
+        fields = "__all__"
 class ProgramSerializer(serializers.ModelSerializer):
+    ege_list = ProgramEgeSerializer(many=True,read_only=True)
     class Meta:
         model = Program
         fields = '__all__'
