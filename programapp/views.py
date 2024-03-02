@@ -17,11 +17,14 @@ class ProgramSerializer(serializers.ModelSerializer):
         model = Program
         fields = '__all__'
 
-
-
 class ProgramFilter(filters.FilterSet):
-
     search = filters.CharFilter(field_name="name", lookup_expr='icontains')
+    speciality =  filters.NumberFilter(method="get_speciality")
+
+    def get_speciality(self,queryset,field_name,value):
+        if value:
+            queryset = queryset.filter(speciality__id=value)
+        return queryset
 
     class Meta:
         model = Program
@@ -35,6 +38,29 @@ class ProgramViewSet(viewsets.ModelViewSet):
     queryset = Program.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProgramFilter
+
+class SpecialitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Speciality
+        fields = '__all__'
+
+class SpecialityFilter(filters.FilterSet):
+    search = filters.CharFilter(field_name="name", lookup_expr='icontains')
+    class Meta:
+        model = Speciality
+        fields = "__all__"
+
+class SpecialityViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing user instances.
+    """
+    serializer_class = SpecialitySerializer
+    queryset = Speciality.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = SpecialityFilter
+
+
+
 
 @login_required
 def program_list(request):

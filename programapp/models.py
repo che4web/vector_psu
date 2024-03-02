@@ -22,6 +22,18 @@ class Program(models.Model):
         verbose_name="Образовательаня программа"
         verbose_name_plural = "Образовательные программы"
 
+
+class Ege(models.Model):
+    name = models.CharField(max_length=255)
+    def __str__(self):
+        return self.name
+
+class ProgramEge(models.Model):
+    program = models.ForeignKey(Program,on_delete=models.CASCADE)
+    ege = models.ForeignKey(Ege,on_delete=models.PROTECT)
+    value = models.IntegerField()
+
+
 class Speciality(models.Model):
     name = models.CharField(max_length=255,verbose_name='Название')
     programapp = models.ForeignKey(Program,on_delete=models.PROTECT,verbose_name="ОП")
