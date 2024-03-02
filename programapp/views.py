@@ -10,10 +10,22 @@ from programapp.forms import SearchForm,ProgramForm
 from rest_framework import viewsets
 from rest_framework import serializers
 
+from django_filters import rest_framework as filters
+
 class ProgramSerializer(serializers.ModelSerializer):
     class Meta:
         model = Program
         fields = '__all__'
+
+
+
+class ProgramFilter(filters.FilterSet):
+
+    search = filters.CharFilter(field_name="name", lookup_expr='icontains')
+
+    class Meta:
+        model = Program
+        fields = "__all__"
 
 class ProgramViewSet(viewsets.ModelViewSet):
     """
@@ -21,6 +33,8 @@ class ProgramViewSet(viewsets.ModelViewSet):
     """
     serializer_class = ProgramSerializer
     queryset = Program.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProgramFilter
 
 @login_required
 def program_list(request):

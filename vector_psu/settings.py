@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'courseapp',
     'programapp',
     'rest_framework',
+    'django_filters',
     #'django_extensions',
 ]
 
@@ -93,6 +94,12 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

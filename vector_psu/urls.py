@@ -29,7 +29,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'program', ProgramViewSet, basename='program')
-router.register(r'course', CourseViewSet, basename='program')
+router.register(r'course', CourseViewSet, basename='course')
 
 urlpatterns = [
     path("",program_list),
