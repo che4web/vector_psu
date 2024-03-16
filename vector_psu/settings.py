@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'courseapp',
     'programapp',
+    'helperapp',
     'rest_framework',
     'django_filters',
     #'django_extensions',

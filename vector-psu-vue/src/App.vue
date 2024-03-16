@@ -6,7 +6,7 @@ import Fist from "./components/Fist.vue"
 
 <template>
     <div class="container">
-      <Fist/>
+      <RouterView/>
       </div>
 
 </template>

@@ -26,6 +26,7 @@ from programapp.views import (program_list,
                               SpecialityViewSet
                               )
 from courseapp.views import CourseListView,CourseDetailView,CourseViewSet
+from helperapp.views import InterestViewSet
 
 from rest_framework.routers import DefaultRouter
 
@@ -33,6 +34,7 @@ router = DefaultRouter()
 router.register(r'program', ProgramViewSet, basename='program')
 router.register(r'course', CourseViewSet, basename='course')
 router.register(r'speciality', SpecialityViewSet, basename='speciality')
+router.register(r'interest', InterestViewSet, basename='interest')
 
 urlpatterns = [
     path("",program_list),
