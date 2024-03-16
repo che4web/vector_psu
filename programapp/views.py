@@ -32,6 +32,7 @@ class ProgramFilter(filters.FilterSet):
             queryset = queryset.filter(speciality__id=value)
         return queryset
 
+
     class Meta:
         model = Program
         fields = "__all__"

@@ -7,6 +7,14 @@ from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework import serializers
 class CourseFilter(filters.FilterSet):
+    interest=  filters.NumberFilter(method="get_interest")
+
+    def get_interest(self,queryset,field_name,value):
+        if value:
+            queryset = queryset.filter(interest__id=value)
+        return queryset
+
+
 
     class Meta:
         model = Course
