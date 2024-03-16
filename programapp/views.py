@@ -11,6 +11,7 @@ from rest_framework import viewsets
 from rest_framework import serializers
 
 from django_filters import rest_framework as filters
+from helperapp.models import Interest
 
 class ProgramEgeSerializer(serializers.ModelSerializer):
     ege_name = serializers.CharField()
@@ -47,12 +48,35 @@ class ProgramViewSet(viewsets.ModelViewSet):
     filterset_class = ProgramFilter
 
 class SpecialitySerializer(serializers.ModelSerializer):
+
+
     class Meta:
         model = Speciality
         fields = '__all__'
 
 class SpecialityFilter(filters.FilterSet):
     search = filters.CharFilter(field_name="name", lookup_expr='icontains')
+    interest = filters.ModelMultipleChoiceFilter(
+        field_name='interest',
+        lookup_expr='in',
+        queryset= Interest.objects.all(),
+        method="get_interest"
+    )
+    def get_speciality(self,queryset,field_name,value):
+        print("spec",value)
+        if value:
+            queryset = queryset.filter(speciality__id=value)
+        return queryset
+
+
+
+    def get_interest(self,queryset,field_name,value):
+        if value:
+            queryset = queryset.filter(interest__in=value)
+        return queryset
+
+
+
     class Meta:
         model = Speciality
         fields = "__all__"

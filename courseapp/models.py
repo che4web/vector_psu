@@ -34,6 +34,9 @@ class Course(models.Model):
         choices=PROF_TYP_CHOISES,
         default="B")
     date = models.DateField(blank=True,null=True)
+    def speciality_list(self):
+        return self.speciality.all().values_list('id',flat=True)
+
     def get_absolute_url(self):
         return f"/course/{self.id}/"
 
