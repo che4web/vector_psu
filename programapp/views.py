@@ -73,7 +73,7 @@ class SpecialityFilter(filters.FilterSet):
     def get_interest(self,queryset,field_name,value):
         if value:
             queryset = queryset.filter(interest__in=value)
-        return queryset
+        return queryset.order_by().distinct()
 
 
 

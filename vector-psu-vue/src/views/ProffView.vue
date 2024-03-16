@@ -2,23 +2,33 @@
     <h1> выбор професии</h1> 
     <div class="row">
         <div class="col-3">
+            <h2> Что тебе нравиться?</h2>
             <div v-for="i in interestList"
                  @click="selecInterest(i)"  
                  :class="filter.interest?.indexOf(i.id)>=0? 'selected':''"
                 >
+                <SquareCheck v-if="filter.interest?.indexOf(i.id)>=0"/>
+                <Square v-else />
                 {{i.name}}
                 </div>
     </div>
 
         <div class="col-3">
-            Профессии
-            <div v-for="s in specialityList" @click="selectSpeciality(s)"> {{s.name}} </div>
+            <h2> Кем работать</h2>
+            <div class="card mb-2" v-for="s in specialityList" @click="selectSpeciality(s)">
+                <div class="card-body ">
+                    <h5 class="card-title">{{s.name}} </h5>
+                    <div class="speciality-card" :class="activeSpeciality==s.id?'show':'hide'"> {{s.description}} </div>
+                    
+                </div>
+
+            </div>
      </div>
         <div class="col-6">
-     Предменты
+        <h2> Что будешь изучать</h2>
      <div v-for="c in courseList" 
-         :class="c.speciality_list.indexOf(activeSpeciality)>=0? 'selected':''"> 
-           {{c.name}} 
+         :class="['area-'+c.known_area,c.speciality_list.indexOf(activeSpeciality)>=0? 'selected':'']"> 
+         {{c.name}} 
     </div>
     </div>
 
@@ -28,13 +38,21 @@
 <script setup>
 import {ref,onMounted,watch } from "vue"
 import {Interest,Course,Speciality} from "@/api.js"
+import { SquareCheck,Square } from 'lucide-vue-next';
 const interestList = ref([])
 async function getInterest(){
     interestList.value = await  Interest.objects.filter()
 }
 
 function selecInterest(i){
-    filter.value.interest.push(i.id)
+    let index = filter.value.interest.indexOf(i.id)
+    console.log(index)
+    if (index>=0){
+        //filter.value.interest = 
+            filter.value.interest.splice(index,1)
+    }else{
+        filter.value.interest.push(i.id)
+    }
 }
 const filter = ref({interest:[]})
 
@@ -65,4 +83,16 @@ watch(
 </script>
 
 <style>
+
+.hide{
+    height:0px
+}
+.show{
+    height:300px
+
+}
+.speciality-card{
+    transition: all 0.3s;
+    overflow:hidden
+}
 </style>

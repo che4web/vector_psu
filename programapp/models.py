@@ -41,6 +41,7 @@ class ProgramEge(models.Model):
 class Speciality(models.Model):
     name = models.CharField(max_length=255,verbose_name='Название')
     programapp = models.ForeignKey(Program,on_delete=models.PROTECT,verbose_name="ОП")
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
