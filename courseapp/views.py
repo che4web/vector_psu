@@ -23,7 +23,8 @@ class CourseFilter(filters.FilterSet):
 
     class Meta:
         model = Course
-        fields = "__all__"
+        #fields = "__all__"
+        exclude = ['img']
 
 
 
@@ -32,6 +33,7 @@ class CourseSerializer(serializers.ModelSerializer):
         child=serializers.IntegerField(),
         read_only=True
     )
+    img_preview = serializers.CharField(read_only=True)
     class Meta:
         model = Course
         fields = '__all__'

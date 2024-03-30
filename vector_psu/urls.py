@@ -30,6 +30,9 @@ from helperapp.views import InterestViewSet
 
 from rest_framework.routers import DefaultRouter
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 router = DefaultRouter()
 router.register(r'program', ProgramViewSet, basename='program')
 router.register(r'course', CourseViewSet, basename='course')
@@ -47,4 +50,4 @@ urlpatterns = [
     path("speciality/",SpecialityListView.as_view()),
     path('admin/', admin.site.urls),
     path('api/',include(router.urls))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

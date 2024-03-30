@@ -18,7 +18,13 @@ async function selectProgram(program){
             <div class="program-card" @click="selectProgram(program)"  >
                 <div class="row">
                     <div class="col-6">
-                        <h3> {{program.name}} </h3>
+                        <h3> 
+                            <router-link 
+                                :to="{name:'program-detail',params:{id:program.id}}"
+                                >
+                                {{program.name}} 
+                            </router-link> 
+                        </h3>
                     </div>
                     <div class="col-6">
                         <div class="text-end"><b>  Бакалавриат 4 года. </b></div>

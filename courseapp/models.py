@@ -1,5 +1,6 @@
 from django.db import models
 from programapp.models import Program,Speciality
+from easy_thumbnails.fields import ThumbnailerImageField
 
 # Create your models here.
 class Foo(models.Model):
@@ -34,6 +35,11 @@ class Course(models.Model):
         choices=PROF_TYP_CHOISES,
         default="B")
     date = models.DateField(blank=True,null=True)
+    img  = ThumbnailerImageField(blank=True,null=True)
+
+    def img_preview(self):
+        if self.img:
+            return self.img['preview'].url
     def speciality_list(self):
         return self.speciality.all().values_list('id',flat=True)
 

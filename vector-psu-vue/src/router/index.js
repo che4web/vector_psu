@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Fist from '../views/Fist.vue'
 import ProffView from '../views/ProffView.vue'
+import ProgramDetail from '../views/ProgramDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +17,12 @@ const router = createRouter({
       name: 'proff',
       component: ProffView
     },
+    {
+      path: '/program/:id/',
+      name: 'program-detail',
+      component: ProgramDetail
+    },
+
     {
       path: '/about',
       name: 'about',
