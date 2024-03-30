@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'helperapp',
     'rest_framework',
     'django_filters',
+    'simple_history',
     #'django_extensions',
 ]
 
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'vector_psu.urls'

@@ -1,6 +1,7 @@
 from django.db import models
 from programapp.models import Program,Speciality
 from easy_thumbnails.fields import ThumbnailerImageField
+from simple_history.models import HistoricalRecords
 
 # Create your models here.
 class Foo(models.Model):
@@ -8,8 +9,8 @@ class Foo(models.Model):
 
 class Course(models.Model):
     name = models.CharField(max_length=255,verbose_name="Название курса")
-    program = models.ManyToManyField(Program,verbose_name="Образовательные программы")
-    speciality  = models.ManyToManyField(Speciality,verbose_name="Специальности")
+    program = models.ManyToManyField(Program,verbose_name="Образовательные программы",blank=True)
+    speciality  = models.ManyToManyField(Speciality,verbose_name="Специальности",blank=True)
     study_load = models.IntegerField(default=0,blank=True)
    # foo = models.OneToOneField(Foo,on_delete=models.SET_NULL,null=True)
     AREA_CHOISES = (
@@ -36,6 +37,7 @@ class Course(models.Model):
         default="B")
     date = models.DateField(blank=True,null=True)
     img  = ThumbnailerImageField(blank=True,null=True)
+    history = HistoricalRecords()
 
     def img_preview(self):
         if self.img:
