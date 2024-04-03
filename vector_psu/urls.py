@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,include,re_path
 from programapp.views import (program_list,
                               program_detail,
                               program_list_json,
@@ -33,6 +33,9 @@ from rest_framework.routers import DefaultRouter
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.generic import TemplateView
+
+
 router = DefaultRouter()
 router.register(r'program', ProgramViewSet, basename='program')
 router.register(r'course', CourseViewSet, basename='course')
@@ -40,7 +43,7 @@ router.register(r'speciality', SpecialityViewSet, basename='speciality')
 router.register(r'interest', InterestViewSet, basename='interest')
 
 urlpatterns = [
-    path("",program_list),
+ #   path("",program_list),
     path("program/json/",program_list_json),
     path("program/create",ProgramCreateView.as_view()),
     #path("program/create",program_create),
@@ -49,5 +52,7 @@ urlpatterns = [
     path("course/<int:pk>/",CourseDetailView.as_view()),
     path("speciality/",SpecialityListView.as_view()),
     path('admin/', admin.site.urls),
-    path('api/',include(router.urls))
+    path('api/',include(router.urls)),
+    re_path('.*',TemplateView.as_view(template_name='index.html'))
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
